@@ -4,43 +4,44 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_1 = __importDefault(require("http"));
+const fs_1 = __importDefault(require("fs"));
 const server = http_1.default.createServer((req, res) => {
-    const url = req.url;
-    console.log(url);
     const method = req.method;
-    console.log(method);
-    let daugiklis = 0;
-    if (url != null) {
-        daugiklis = parseInt(url.split("/")[1]);
+    const url = req.url;
+    console.log(`Metodas: ${method}, URL: ${url}`);
+    if (url == '/calculate' && method == 'POST') {
+        const reqBody = [];
+        req.on('data', (d) => {
+            console.log(`Gaunami duomenys`);
+            console.log(`Duomenys: ${d}`);
+            reqBody.push(d);
+        });
+        req.on('end', () => {
+            console.log(`Baigti siųsti duomenys`);
+            const reqData = Buffer.concat(reqBody).toString();
+            const va = reqData.split('&');
+            const x = parseFloat(va[0].split('=')[1]);
+            console.log(`Visi gauti duomenys: ${reqData}`);
+            console.log(va);
+            res.setHeader("Content-Type", "text/html; charset=utf-8");
+            let template = fs_1.default.readFileSync('templates/result.html').toString();
+            template = template.replace('{{ result }}', `Rezultatas: ${x * 2.54}`);
+            res.write(template);
+            res.end();
+        });
+        return;
     }
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.write("<!DOCTYPE html>");
-    res.write("<html>");
-    res.write("<head>");
-    res.write("<title>Daugybos lentelė</title>");
-    res.write("</head>");
-    res.write("<body>");
-    res.write(`<a href="/10">10%</a>&nbsp;&nbsp;`);
-    res.write(`<a href="/30">30%</a>&nbsp;&nbsp;`);
-    res.write(`<a href="/50">50%</a>&nbsp;&nbsp;`);
-    res.write("<hr>");
-    res.write(`<h1>Daugybos lentelė</h1>`);
-    res.write("<table border='1'>");
-    for (let i = 1; i <= 10; i++) {
-        res.write("<tr>");
-        for (let y = 1; y <= 10; y++) {
-            if (Math.random() < daugiklis / 100) {
-                res.write("<td></td>");
-            }
-            else {
-                res.write(`<td>${i * y}</td>`);
-            }
-        }
-        res.write("</tr>");
+    if (url == '/') {
+        res.setHeader("Content-Type", "text/html; charset=utf-8");
+        const template = fs_1.default.readFileSync('templates/index.html');
+        res.write(template);
+        return res.end();
     }
-    res.write("</table>");
-    res.write("</body>");
-    res.write("</html>");
-    res.end();
+    res.writeHead(404, {
+        "Content-Type": "text/html; charset=utf-8"
+    });
+    const template = fs_1.default.readFileSync('templates/404.html');
+    res.write(template);
+    return res.end();
 });
 server.listen(3000, 'localhost');
