@@ -1,0 +1,89 @@
+<!--
+Sukurkite InoDB duomenų lentelę Employees .
+
+    SELECT * FROM employees.employees;
+
+1 Jonas Jonaitis vyras 1980-03-15 00:00:00 Programavimas 2000
+2 Ona Onaite moteris 2001-05-30 00:00:00 Apskaita 1500
+3 Petras Petraitis vyras 1990-04-10 00:00:00 Vadyda 1200
+4 Milda Mildaite moteris 2000-12-08 00:00:00 Dizainas 1500
+5 Domas Dominas vyras 1988-06-14 00:00:00 Vadyba 1500
+6 Ina Inaite moteris 1990-05-18 00:00:00 Dizainas 1400
+7 Matas Matinas vyras 1999-11-29 00:00:00 Programavimas 1600
+8 Tesa Tesaite moteris 1988-07-07 00:00:00 Programavimas 1600
+9 Ula Ulaite moteris 1977-10-17 00:00:00 Verslo vadyba 2500
+10 Todas Todukas vyras 2002-02-24 00:00:00 Programavimas 1400
+
+
+
+
+
+
+Sukurkite lentelę InoDB lentelę Positions.
+
+SELECT * FROM positions.positions;
+
+
+
+ 	1	Direktorius	2500
+ 	2	Buhalteris	1500
+ 	3	Programuotojas	2000
+ 	4	Dizainere	1600
+ 	5	Vadybininkas	1400
+
+
+
+
+
+1. Surasti visas Afrikos valstybes kurios atgavo nepriklausomybę po 1990. Turėtumėte išvesti valstybės pavadinimą ir metus.
+
+
+SELECT Name, IndepYear FROM world.country WHERE Continent = "Africa" ORDER BY IndepYear Desc LIMIT 0, 2;
+
+
+ 	Name	IndepYear
+ 	Eritrea	1993
+ 	Namibia	1990
+
+
+
+
+2. Išvestų Azijos didžiausių valstybių penketuką pagal plotą.
+
+
+SELECT Name, SurfaceArea FROM world.country WHERE Continent = "Asia" ORDER BY SurfaceArea Desc LIMIT 0, 5;
+
+
+China	9572900.00
+India	3287263.00
+Kazakstan	2724900.00
+Saudi Arabia	2149690.00
+Indonesia	1904569.00
+
+
+
+	
+3. Surasti trumpiasiai gyvenančią Afrikos valstybę (tai turi būti ne null reikšmė). Išvesti pavadinimą ir gyvenimo trukmę.
+
+SELECT Name, LifeExpectancy FROM world.country WHERE Continent = "Africa" ORDER BY LifeExpectancy ASC LIMIT 1, 1;
+
+
+Zambia	37.2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
