@@ -1,0 +1,108 @@
+<!--
+1. Susiekite darbuotojų ir pareigų lenteles.
+
+
+
+2. Sukurkite  lentelę "projects" kuri tūrėtų šiuos laukus:
+
+    id,
+    name,
+    price,
+    year
+    program (varchar 64 simb., programos pavadinimas)
+ 
+
+
+
+3. Sukurkite ryšį daug-daug tarp lentelių employees ir projects 
+(vienas darbuotojas gali dirbti prie daug projektų 
+ir prie vieno projekto gali dirbti daug darbuotojų).
+
+
+
+
+4uzduotis
+
+ SELECT 
+ e.name, e.surname, p.name AS projektas 
+ FROM proemp pe
+ LEFT JOIN employees e ON pe.employee_id=e.id 
+ LEFT JOIN projects p ON pe.project_id=p.id
+ Order BY p.name
+
+
+Jonas	Jonaitis	antras
+Ona	    Onaite	    antras
+Petras	Petraitis	antras
+Ona	    Onaite	    pirmas
+Jonas	Jonaitis	pirmas
+Domas	Dominas	    pirmas
+Ina	    Inaite	    pirmas
+Todas	Todukas	    pirmas
+
+
+
+
+5.Parašykite užklausą kuri gražintų tuos žmones kurie uždirba daugiau nei jų pareigybėse yra numatyta. Žmonės turi 
+būti išrikiuoti mažėjimo tvarka pagal atlyginimą.
+ 
+SELECT 
+ e.name, e.surname, e.salary, p.name, p.base_salary 
+ FROM employees e
+ LEFT JOIN positions p ON e.position_id=p.id
+ WHERE e.salary > p.base_salary
+ Order BY e.salary DESC;
+
+
+Mida  Milde   1500 dizaineris    1300
+Domas Dominas 1500 vadybininkas  1400
+Ina   Inaite  1400 dizaineris    1300
+
+
+
+
+
+6. Parašykite užklausą kuri gražintų sąrašą žmonių 
+kurie nedirba prie projektų.
+ 
+SELECT 
+ e.name, e.surname
+ FROM employees e
+
+ LEFT JOIN proemp pe ON pe.employee_id=e.id
+ WHERE pe.id IS NULL
+
+Mida	Milde
+Matas	Matinas
+Tesa	Tesaite
+Ula	    Ulaite
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
